@@ -11,53 +11,6 @@ var nameEl = document.querySelector("#name");
 var reviewEl = document.querySelector("#review");
 var resetB = document.querySelector("#restart");
 
-
-
-var cutrentQ = 0;
-var time = ques.length * 15;
-var timeId;
-
-
-
-
-
-
-
-function getQ() {
-    var currentQuestion = ques[cutrentQ];
-  var promptEl = document.getElementById("questions")
-    promptEl.textContent = currentQuestion.prompt;
-    optionss.innerHTML = "";
-    currentQuestion.options.forEach(function(choice, i) {
-        var choiceBtn = document.createElement("button");
-        choiceBtn.setAttribute("value", choice);
-        choiceBtn.textContent = i + 1 + ". " + choice;
-        choiceBtn.onclick = questionClick;
-        optionss.appendChild(choiceBtn);
-    });
-}
-
-function start() {
-    timeId = setInterval(counter, 1000);
-    timer.textContent = time;
-    var hanScreenEl = document.getElementById("starts");
-    hanScreenEl.setAttribute("class", "vanish");
-   questions.removeAttribute("class");
-    getQ();
-}
-
-
-
-
-function quizEnd() {
-    clearInterval(timeId);
-    var endScreenEl = document.getElementById("done");
-    endScreenEl.removeAttribute("class");
-    var finalScoreEl = document.getElementById("finals");
-    finalScoreEl.textContent = time;
-   questions.setAttribute("class", "vanish");
-}
-
 var ques = [
     {
         prompt: "what is used to style?",
@@ -84,28 +37,27 @@ var ques = [
     }
     ];
 
-function counter() {
-    time--;
+
+var cutrentQ = 0;
+var time = ques.length * 15;
+var timeId;
+
+
+
+function start() {
+    timeId = setInterval(counter, 1000);
     timer.textContent = time;
-    if (time <= 0) {
-      quizEnd();
-    }
+    var hanScreenEl = document.getElementById("starts");
+    hanScreenEl.setAttribute("class", "vanish");
+   questions.removeAttribute("class");
+    getQ();
 }
 
 
-function bankS() {
-    var name = nameEl.value.trim();
-    if (name !== "") {
-      var hscore =
-        JSON.parse(window.localStorage.getItem("hscore")) || [];
-      var newScore = {
-        score: time,
-        name: name
-      };
-      hscore.push(newScore);
-      window.localStorage.setItem("hscore", JSON.stringify(hscore));
-    }
-}
+
+
+
+
 
 function questionClick() {
     if (this.value !== ques[cutrentQ].answer) {
@@ -132,9 +84,51 @@ function questionClick() {
     }
 }
 
-function checkInput(event) {
-    if (event.key === "Enter") {
-        bankS();
+function getQ() {
+    var currentQuestion = ques[cutrentQ];
+  var promptEl = document.getElementById("questions")
+    promptEl.textContent = currentQuestion.prompt;
+    optionss.innerHTML = "";
+    currentQuestion.options.forEach(function(choice, i) {
+        var choiceBtn = document.createElement("button");
+        choiceBtn.setAttribute("value", choice);
+        choiceBtn.textContent = i + 1 + ". " + choice;
+        choiceBtn.onclick = questionClick;
+        optionss.appendChild(choiceBtn);
+    });
+}
+
+function quizEnd() {
+    clearInterval(timeId);
+    var endScreenEl = document.getElementById("done");
+    endScreenEl.removeAttribute("class");
+    var finalScoreEl = document.getElementById("finals");
+    finalScoreEl.textContent = time;
+   questions.setAttribute("class", "vanish");
+}
+
+
+
+function counter() {
+    time--;
+    timer.textContent = time;
+    if (time <= 0) {
+      quizEnd();
+    }
+}
+
+
+function bankS() {
+    var name = nameEl.value.trim();
+    if (name !== "") {
+      var hscore =
+        JSON.parse(window.localStorage.getItem("hscore")) || [];
+      var newScore = {
+        score: time,
+        name: name
+      };
+      hscore.push(newScore);
+      window.localStorage.setItem("hscore", JSON.stringify(hscore));
     }
 }
 
@@ -151,6 +145,14 @@ function printHScore() {
     });
 }
 
+ 
+
+
+function checkInput(event) {
+    if (event.key === "Enter") {
+        bankS();
+    }
+}
 nameEl.onkeyup = checkInput;
 
 
@@ -168,8 +170,6 @@ var scoresBtn = document.querySelector("#hscore");
 
 
 
-
- 
   function clearHScore() {
     window.localStorage.removeItem("hscore");
     window.location.reload();
