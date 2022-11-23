@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+
+   
+      
+  
+    
+    <div class="time">
+        <p>Time: 
+            <span id="time">0</span>
+        </p>
+    </div>
+</header>
+
+<main class="quiz">
+    <div id="start">
+        <div class="han" id="starts">
+            <h1>Quiz</h1>
+            <p> answer the code-related ques within the time limit.</p>
+            <button id="start">Start</button>
+        </div>
+    </div>
+
+    <div class="vanish" id="ques">
+        <h2 id="questions"></h2>
+        <div class="options" id="options"></div>
+    </div>
+
+    <div class="vanish" id="done">
+        <h2>Done!</h2>
+        <p>Your score is: <span id="finals"></span></p>
+        <p>Please enter your name: <input type="text" id="name" max="3" />
+            <button id="score">Submit</button>
+        </p>
+    </div>
+
+    <div class="rank">
+        <h1>HScore</h1>
+        <ol id="hscore"></ol>
+
+        <a href="index.html"><button>Re-Start</button></a>
+        <button id="clear">Clear</button>
+      </div>
+
+    <div id="review" class="review vanish"></div>
+    <script src="index.js"></script>
+</body>
+</html>
